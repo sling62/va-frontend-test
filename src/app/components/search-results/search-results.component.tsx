@@ -1,5 +1,6 @@
 import { getData } from "@/services/search";
 import { BookingResponse, Holiday } from "@/types/booking";
+import { getCommonHotelIdsFromAllFilterResults } from "@/utils/filters";
 import { getHolidaysFilteredByHotelFacilities } from "@/utils/filters/hotelFacilities";
 import { getHolidaysFilteredByPricePerPerson } from "@/utils/filters/pricePerPerson";
 import { getHolidaysFilteredByStarRating } from "@/utils/filters/starRating";
@@ -19,31 +20,12 @@ export default async function SearchResultsComponent({
     getHolidaysFilteredByPricePerPerson(holidayResults),
   ].filter((holidays) => holidays.length !== 0);
 
-  const hotelIdOccurrencesInFilters: Record<string, number> = {};
-
-  holidaysFromEachFilter.forEach((holidays) => {
-    holidays.forEach((x: Holiday) => {
-      const hotelId: string = x.hotel.id;
-      if (hotelIdOccurrencesInFilters[hotelId]) {
-        hotelIdOccurrencesInFilters[hotelId] += 1;
-      } else {
-        hotelIdOccurrencesInFilters[hotelId] = 1;
-      }
-    });
-  });
-
-  let filteredHotelIds: string[] = [];
-
-  for (const hotelId in hotelIdOccurrencesInFilters) {
-    if (
-      hotelIdOccurrencesInFilters[hotelId] === holidaysFromEachFilter.length
-    ) {
-      filteredHotelIds.push(hotelId);
-    }
-  }
+  const hotelIds = getCommonHotelIdsFromAllFilterResults(
+    holidaysFromEachFilter
+  );
 
   const filteredResults = holidayResults.filter((holiday) =>
-    filteredHotelIds.includes(holiday.hotel.id)
+    hotelIds.includes(holiday.hotel.id)
   );
 
   return (
