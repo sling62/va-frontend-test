@@ -1,34 +1,8 @@
-import { BookingResponse } from "@/types/booking";
-import { Rooms } from "@/utils/composition.service";
-
-async function getData(params: { [key: string]: string | string[] | undefined }) {
-  const body = {
-    bookingType: params.bookingType,
-    direct: false,
-    location: params.location,
-    departureDate: params.departureDate,
-    duration: params.duration,
-    gateway: params.gateway,
-    partyCompositions: Rooms.parseAndConvert([params.partyCompositions as string]),
-  };
-
-  const res = await fetch(
-    "https://www.virginholidays.co.uk/cjs-search-api/search",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    }
-  );
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-}
+import { getData } from "@/services/search";
+import { BookingResponse, Holiday } from "@/types/booking";
+import { getHolidaysFilteredByHotelFacilities } from "@/utils/filters/hotelFacilities";
+import { getHolidaysFilteredByPricePerPerson } from "@/utils/filters/pricePerPerson";
+import { getHolidaysFilteredByStarRating } from "@/utils/filters/starRating";
 
 export default async function SearchResultsComponent({
   searchParams,
@@ -37,6 +11,40 @@ export default async function SearchResultsComponent({
 }) {
   const req = await getData(searchParams);
   const results: BookingResponse = req;
+  const holidayResults = results.holidays;
+
+  const holidaysFromEachFilter = [
+    getHolidaysFilteredByHotelFacilities(holidayResults),
+    getHolidaysFilteredByStarRating(holidayResults),
+    getHolidaysFilteredByPricePerPerson(holidayResults),
+  ].filter((holidays) => holidays.length !== 0);
+
+  const hotelIdOccurrencesInFilters: Record<string, number> = {};
+
+  holidaysFromEachFilter.forEach((holidays) => {
+    holidays.forEach((x: Holiday) => {
+      const hotelId: string = x.hotel.id;
+      if (hotelIdOccurrencesInFilters[hotelId]) {
+        hotelIdOccurrencesInFilters[hotelId] += 1;
+      } else {
+        hotelIdOccurrencesInFilters[hotelId] = 1;
+      }
+    });
+  });
+
+  let filteredHotelIds: string[] = [];
+
+  for (const hotelId in hotelIdOccurrencesInFilters) {
+    if (
+      hotelIdOccurrencesInFilters[hotelId] === holidaysFromEachFilter.length
+    ) {
+      filteredHotelIds.push(hotelId);
+    }
+  }
+
+  const filteredResults = holidayResults.filter((holiday) =>
+    filteredHotelIds.includes(holiday.hotel.id)
+  );
 
   return (
     <section>
