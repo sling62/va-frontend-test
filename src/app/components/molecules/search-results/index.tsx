@@ -9,6 +9,7 @@ import { getFilteredResults, updateSelectedFilters } from "@/utils/filters";
 import { useState } from "react";
 import { FilterCategory } from "@/types/filters";
 import { FilterSet } from "../filterSet";
+import { SearchResultCard } from "../search-result-card";
 
 interface SearchResultsComponentProps {
   holidayResults: Holiday[];
@@ -78,6 +79,15 @@ export const SearchResultsComponent = ({
         filterList={starRatingFilters}
         onClick={onFilterClick}
       />
+      {filteredResults.map((holiday) => (
+        <SearchResultCard
+          key={holiday.hotel.id}
+          hotelName={holiday.hotel.name}
+          pricePerPerson={holiday.pricePerPerson}
+          hotelFacilities={holiday.hotel.content.hotelFacilities}
+          starRating={holiday.hotel.content.starRating}
+        />
+      ))}
     </section>
   );
 };
