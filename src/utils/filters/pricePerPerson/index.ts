@@ -1,34 +1,9 @@
 import { Holiday } from "@/types/booking";
-
-export const pricePerPersonFilters = [
-  {
-    name: "Up to £2100",
-    value: {
-      priceFrom: 0,
-      priceTo: 2100,
-    },
-    selected: true,
-  },
-  {
-    name: "£2100 - £2500",
-    value: {
-      priceFrom: 2100,
-      priceTo: 2500,
-    },
-    selected: false,
-  },
-  {
-    name: "Over £2500",
-    value: {
-      priceFrom: 2500,
-      priceTo: undefined,
-    },
-    selected: true,
-  },
-];
+import { PricePerPersonFilter } from "@/types/filters";
 
 export const getHolidaysFilteredByPricePerPerson = (
-  results: Holiday[]
+  results: Holiday[],
+  pricePerPersonFilters: PricePerPersonFilter[]
 ): Holiday[] => {
   let pricePerPersonFiltersSelected = pricePerPersonFilters.filter(
     (pricePerPersonFilter) => pricePerPersonFilter.selected === true
