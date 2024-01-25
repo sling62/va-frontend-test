@@ -10,6 +10,7 @@ import { useState } from "react";
 import { FilterCategory } from "@/types/filters";
 import { FilterSet } from "../filterSet";
 import { SearchResultCard } from "../search-result-card";
+import * as styles from "./search-results.styles";
 
 interface SearchResultsComponentProps {
   holidayResults: Holiday[];
@@ -64,30 +65,36 @@ export const SearchResultsComponent = ({
     <section>
       <h2>{filteredResults?.length} results found</h2>
       <p>Please fill out the filters and results list below&hellip;</p>
-      <FilterSet
-        title="Price (PP)"
-        filterList={pricePerPersonFilters}
-        onClick={onFilterClick}
-      />
-      <FilterSet
-        title="Hotel Facilities"
-        filterList={hotelFacilitiesFilters}
-        onClick={onFilterClick}
-      />
-      <FilterSet
-        title="Star Rating"
-        filterList={starRatingFilters}
-        onClick={onFilterClick}
-      />
-      {filteredResults.map((holiday) => (
-        <SearchResultCard
-          key={holiday.hotel.id}
-          hotelName={holiday.hotel.name}
-          pricePerPerson={holiday.pricePerPerson}
-          hotelFacilities={holiday.hotel.content.hotelFacilities}
-          starRating={holiday.hotel.content.starRating}
-        />
-      ))}
+      <div css={styles.filtersAndSearchResultsContainer}>
+        <div>
+          <FilterSet
+            title="Price (PP)"
+            filterList={pricePerPersonFilters}
+            onClick={onFilterClick}
+          />
+          <FilterSet
+            title="Hotel Facilities"
+            filterList={hotelFacilitiesFilters}
+            onClick={onFilterClick}
+          />
+          <FilterSet
+            title="Star Rating"
+            filterList={starRatingFilters}
+            onClick={onFilterClick}
+          />
+        </div>
+        <div css={styles.searchResultsContainer}>
+          {filteredResults?.map((holiday) => (
+            <SearchResultCard
+              key={holiday.hotel.id}
+              hotelName={holiday.hotel.name}
+              pricePerPerson={holiday.pricePerPerson}
+              hotelFacilities={holiday.hotel.content.hotelFacilities}
+              starRating={holiday.hotel.content.starRating}
+            />
+          ))}
+        </div>
+      </div>
     </section>
   );
 };
