@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import Loading from "./loading";
 import { BookingResponse } from "@/types/booking";
 import { getData } from "@/services/search";
-import { SearchResultsComponent } from "../components/search-results/search-results.component";
+import { SearchResultsComponent } from "../components/molecules/search-results";
 
 export default async function Results({
   searchParams,

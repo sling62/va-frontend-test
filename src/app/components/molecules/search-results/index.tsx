@@ -1,5 +1,5 @@
 import { Holiday } from "@/types/booking";
-import { Filters } from "../molecules/filters/Filters";
+import { Filters } from "../filters/Filters";
 
 interface SearchResultsComponentProps {
   holidayResults: Holiday[];
