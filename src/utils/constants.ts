@@ -1,15 +1,11 @@
-import {
-  HotelFacilitiesFilter,
-  PricePerPersonFilter,
-  StarRatingFilter,
-} from "@/types/filters";
+import { Filter } from "@/types/filters";
 
 export const DATE_FORMATS = {
   URL_DATE: "dd-MM-yyyy",
   DISPLAY_DATE: "dd MMM, yyyy",
 };
 
-export const hotelFacilitiesFilters: HotelFacilitiesFilter[] = [
+export const hotelFacilitiesFilters: Filter[] = [
   {
     name: "Restaurant",
     value: "Restaurant",
@@ -27,7 +23,7 @@ export const hotelFacilitiesFilters: HotelFacilitiesFilter[] = [
   },
 ];
 
-export const starRatingFilters: StarRatingFilter[] = [
+export const starRatingFilters: Filter[] = [
   {
     name: "5",
     value: "5",
@@ -45,7 +41,7 @@ export const starRatingFilters: StarRatingFilter[] = [
   },
 ];
 
-export const pricePerPersonFilters: PricePerPersonFilter[] = [
+export const pricePerPersonFilters: Filter[] = [
   {
     name: "Up to £2100",
     value: {

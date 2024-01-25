@@ -5,12 +5,9 @@ import {
   pricePerPersonFilters,
   starRatingFilters,
 } from "@/utils/constants";
-import { useState } from "react";
-import { getHolidaysFilteredByHotelFacilities } from "@/utils/filters/hotelFacilities";
-import { getHolidaysFilteredByStarRating } from "@/utils/filters/starRating";
-import { getHolidaysFilteredByPricePerPerson } from "@/utils/filters/pricePerPerson";
-import { getCommonHotelIdsFromAllFilterResults } from "@/utils/filters";
+import { getFilteredResults, updateSelectedFilters } from "@/utils/filters";
 import { Checkbox } from "../../atoms/Checkbox";
+import { useState } from "react";
 
 interface SearchResultsComponentProps {
   holidayResults: Holiday[];
@@ -25,53 +22,77 @@ export const SearchResultsComponent = ({
     useState(starRatingFilters);
   const [pricePerPersonFiltersSelected, setPricePerPersonFiltersSelected] =
     useState(pricePerPersonFilters);
+  const [filteredResults, setFilteredResults] = useState(holidayResults);
 
-  const holidaysFromEachFilter = [
-    getHolidaysFilteredByHotelFacilities(
-      holidayResults,
-      hotelFacilityFiltersSelected
-    ),
-    getHolidaysFilteredByStarRating(holidayResults, starRatingFiltersSelected),
-    getHolidaysFilteredByPricePerPerson(
-      holidayResults,
-      pricePerPersonFiltersSelected
-    ),
-  ].filter((holidays) => holidays.length !== 0);
+  const onFilterClick = (filterName: string, filterCategory: string) => {
+    switch (filterCategory) {
+      case "hotelFacilities":
+        setHotelFacilityFiltersSelected(
+          updateSelectedFilters(filterName, hotelFacilityFiltersSelected)
+        );
+        break;
+      case "starRating":
+        setStarRatingFiltersSelected(
+          updateSelectedFilters(filterName, starRatingFiltersSelected)
+        );
+        break;
+      case "pricePerPerson":
+        setPricePerPersonFiltersSelected(
+          updateSelectedFilters(filterName, pricePerPersonFiltersSelected)
+        );
+        break;
+      default:
+        break;
+    }
 
-  const hotelIds = getCommonHotelIdsFromAllFilterResults(
-    holidaysFromEachFilter
-  );
-
-  const filteredResults = holidayResults.filter((holiday) =>
-    hotelIds.includes(holiday.hotel.id)
-  );
-
-  console.log(filteredResults.length);
-
-  const onHotelFacilityFilterClick = (filterName: string) => {
-    let currentSelectedFilters = hotelFacilityFiltersSelected;
-    const indexOfClickedFilter = currentSelectedFilters.findIndex(
-      (facility) => facility.name === filterName
+    setFilteredResults(
+      getFilteredResults(
+        holidayResults,
+        hotelFacilityFiltersSelected,
+        starRatingFiltersSelected,
+        pricePerPersonFiltersSelected
+      )
     );
-    currentSelectedFilters[indexOfClickedFilter].selected =
-      !currentSelectedFilters[indexOfClickedFilter].selected;
-    setHotelFacilityFiltersSelected(currentSelectedFilters);
-
-    console.log(hotelFacilityFiltersSelected);
   };
 
   return (
     <section>
-      <h2>{holidayResults?.length} results found</h2>
+      <h2>{filteredResults?.length} results found</h2>
       <p>Please fill out the filters and results list below&hellip;</p>
       {hotelFacilitiesFilters.map((hotelFacilityFilter) => {
-        const hotelFacilityName = hotelFacilityFilter.name;
+        const hotelFacilityFilterName = hotelFacilityFilter.name;
         return (
           <Checkbox
-            key={hotelFacilityName}
-            label={hotelFacilityName}
+            key={hotelFacilityFilterName}
+            label={hotelFacilityFilterName}
             checked={false}
-            onClick={() => onHotelFacilityFilterClick(hotelFacilityName)}
+            onClick={() =>
+              onFilterClick(hotelFacilityFilterName, "hotelFacilities")
+            }
+          />
+        );
+      })}
+      {starRatingFilters.map((starRatingFilter) => {
+        const starRatingFilterName = starRatingFilter.name;
+        return (
+          <Checkbox
+            key={starRatingFilterName}
+            label={starRatingFilterName}
+            checked={false}
+            onClick={() => onFilterClick(starRatingFilterName, "starRating")}
+          />
+        );
+      })}
+      {pricePerPersonFilters.map((pricePerPersonFilter) => {
+        const pricePerPersonFilterName = pricePerPersonFilter.name;
+        return (
+          <Checkbox
+            key={pricePerPersonFilterName}
+            label={pricePerPersonFilterName}
+            checked={false}
+            onClick={() =>
+              onFilterClick(pricePerPersonFilterName, "pricePerPerson")
+            }
           />
         );
       })}

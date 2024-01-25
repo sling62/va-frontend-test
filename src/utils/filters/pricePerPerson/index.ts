@@ -1,9 +1,9 @@
 import { Holiday } from "@/types/booking";
-import { PricePerPersonFilter } from "@/types/filters";
+import { Filter } from "@/types/filters";
 
 export const getHolidaysFilteredByPricePerPerson = (
   results: Holiday[],
-  pricePerPersonFilters: PricePerPersonFilter[]
+  pricePerPersonFilters: Filter[]
 ): Holiday[] => {
   let pricePerPersonFiltersSelected = pricePerPersonFilters.filter(
     (pricePerPersonFilter) => pricePerPersonFilter.selected === true
