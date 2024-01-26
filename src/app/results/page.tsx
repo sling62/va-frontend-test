@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import Loading from "./loading";
 import { BookingResponse } from "@/types/booking";
 import { getData } from "@/services/search";
-import { SearchResultsComponent } from "../components/molecules/search-results";
+import { SearchResults } from "../components/molecules/search-results";
 import styles from "./page.module.css";
 
 export default async function Results({
@@ -20,7 +20,7 @@ export default async function Results({
 
       <Suspense fallback={<Loading />}>
         <div className={styles.searchResultsContainer}>
-          <SearchResultsComponent holidayResults={holidayResults} />
+          <SearchResults results={holidayResults} />
         </div>
       </Suspense>
     </>

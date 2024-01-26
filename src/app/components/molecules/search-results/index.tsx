@@ -8,24 +8,22 @@ import {
 import { getFilteredResults, updateSelectedFilters } from "@/utils/filters";
 import { useState } from "react";
 import { FilterCategory } from "@/types/filters";
-import { FilterSet } from "../filterSet";
+import { FilterSet } from "../filter-set";
 import { SearchResultCard } from "../search-result-card";
 import * as styles from "./search-results.styles";
 
 interface SearchResultsComponentProps {
-  holidayResults: Holiday[];
+  results: Holiday[];
 }
 
-export const SearchResultsComponent = ({
-  holidayResults,
-}: SearchResultsComponentProps) => {
+export const SearchResults = ({ results }: SearchResultsComponentProps) => {
   const [hotelFacilityFiltersSelected, setHotelFacilityFiltersSelected] =
     useState(hotelFacilitiesFilters);
   const [starRatingFiltersSelected, setStarRatingFiltersSelected] =
     useState(starRatingFilters);
   const [pricePerPersonFiltersSelected, setPricePerPersonFiltersSelected] =
     useState(pricePerPersonFilters);
-  const [filteredResults, setFilteredResults] = useState(holidayResults);
+  const [filteredResults, setFilteredResults] = useState(results);
 
   const onFilterClick = (
     filterName: string,
@@ -53,7 +51,7 @@ export const SearchResultsComponent = ({
 
     setFilteredResults(
       getFilteredResults(
-        holidayResults,
+        results,
         hotelFacilityFiltersSelected,
         starRatingFiltersSelected,
         pricePerPersonFiltersSelected
