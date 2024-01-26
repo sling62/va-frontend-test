@@ -62,7 +62,7 @@ export const SearchResultsComponent = ({
   };
 
   return (
-    <section>
+    <section css={styles.container}>
       <h2>{filteredResults?.length} results found</h2>
       <p>Please fill out the filters and results list below&hellip;</p>
       <div css={styles.filtersAndSearchResultsContainer}>

@@ -3,6 +3,7 @@ import Loading from "./loading";
 import { BookingResponse } from "@/types/booking";
 import { getData } from "@/services/search";
 import { SearchResultsComponent } from "../components/molecules/search-results";
+import styles from "./page.module.css";
 
 export default async function Results({
   searchParams,
@@ -18,7 +19,9 @@ export default async function Results({
       <h1>Search results</h1>
 
       <Suspense fallback={<Loading />}>
-        <SearchResultsComponent holidayResults={holidayResults} />
+        <div className={styles.searchResultsContainer}>
+          <SearchResultsComponent holidayResults={holidayResults} />
+        </div>
       </Suspense>
     </>
   );
