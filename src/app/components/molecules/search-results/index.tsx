@@ -64,7 +64,7 @@ export const SearchResults = ({ results }: SearchResultsComponentProps) => {
       <h2>{filteredResults?.length} results found</h2>
       <p>Please fill out the filters and results list below&hellip;</p>
       <div css={styles.filtersAndSearchResultsContainer}>
-        <div>
+        <div css={styles.filterContainer}>
           <FilterSet
             title="Price (PP)"
             filterList={pricePerPersonFilters}
