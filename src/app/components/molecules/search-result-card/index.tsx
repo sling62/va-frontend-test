@@ -28,8 +28,8 @@ export const SearchResultCard = ({
           width={300}
           height={200}
         />
-        <span css={styles.hotelName}>{hotelName}</span>
-        <div css={styles.contentItems}>
+        <div css={styles.description}>
+          <span css={styles.hotelName}>{hotelName}</span>
           <ul>
             {hotelFacilities.map((facility) => (
               <li key={facility} css={styles.hotelFacility}>
@@ -37,7 +37,9 @@ export const SearchResultCard = ({
               </li>
             ))}
           </ul>
-          <span>£{pricePerPerson}pp</span>
+          <div css={styles.priceContainer}>
+            <span css={styles.pricePerPerson}>£{pricePerPerson}pp</span>
+          </div>
         </div>
       </div>
     </div>
