@@ -13,13 +13,16 @@ export const Checkbox = ({ label, checked, onClick }: CheckboxProps) => {
 
   return (
     <div>
-      <input
-        type="checkbox"
-        checked={isChecked}
-        onChange={() => setIsChecked(!isChecked)}
-        onClick={onClick}
-      />
-      <label> {label}</label>
+      <label>
+        <input
+          type="checkbox"
+          value={label}
+          checked={isChecked}
+          onChange={() => setIsChecked(!isChecked)}
+          onClick={onClick}
+        />
+        {label}
+      </label>
     </div>
   );
 };
