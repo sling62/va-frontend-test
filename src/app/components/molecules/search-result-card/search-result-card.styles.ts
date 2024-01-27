@@ -5,7 +5,6 @@ export const container = css`
 `;
 
 export const content = css`
-  padding: 10px;
   border: 1px solid #d9d9d9;
   box-shadow: 0 0 6px 0 #00000033;
 
@@ -37,6 +36,7 @@ export const hotelImage = css`
 `;
 
 export const description = css`
+  margin: 20px;
   @media (min-width: 480px) {
     margin-left: 20px;
   }
