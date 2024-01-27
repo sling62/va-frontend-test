@@ -6,9 +6,8 @@ export const container = css`
 
 export const content = css`
   padding: 10px;
-  border: 5px solid red;
-  border-radius: 10px;
-  border-style: double;
+  border: 1px solid #d9d9d9;
+  box-shadow: 0 0 6px 0 #00000033;
 
   @media (min-width: 480px) {
     display: flex;
@@ -31,7 +30,6 @@ export const hotelFacility = css`
 `;
 
 export const hotelImage = css`
-  border-radius: 10px;
   @media (max-width: 480px) {
     width: 100%;
     height: 100%;
