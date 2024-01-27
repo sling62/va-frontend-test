@@ -30,6 +30,9 @@ export const SearchResultCard = ({
         />
         <div css={styles.description}>
           <span css={styles.hotelName}>{hotelName}</span>
+          {starRating && (
+            <span css={styles.starRating}>(Star Rating: {starRating})</span>
+          )}
           <ul>
             {hotelFacilities.map((facility) => (
               <li key={facility} css={styles.hotelFacility}>

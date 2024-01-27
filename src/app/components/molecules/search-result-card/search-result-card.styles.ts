@@ -20,6 +20,10 @@ export const hotelName = css`
   font-weight: bold;
 `;
 
+export const starRating = css`
+  display: block;
+`;
+
 export const hotelFacility = css`
   &::marker {
     color: red;
