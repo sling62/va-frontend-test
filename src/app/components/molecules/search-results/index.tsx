@@ -89,6 +89,7 @@ export const SearchResults = ({ results }: SearchResultsComponentProps) => {
               pricePerPerson={holiday.pricePerPerson}
               hotelFacilities={holiday.hotel.content.hotelFacilities}
               starRating={holiday.hotel.content.starRating}
+              hotelImages={holiday.hotel.content.images}
             />
           ))}
         </div>

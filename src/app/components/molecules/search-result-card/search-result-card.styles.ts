@@ -20,6 +20,13 @@ export const hotelFacility = css`
   }
 `;
 
+export const hotelImage = css`
+  @media (max-width: 480px) {
+    width: 100%;
+    height: 100%;
+  }
+`;
+
 export const contentItems = css`
   display: flex;
   justify-content: space-between;
