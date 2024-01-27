@@ -5,12 +5,17 @@ export const container = css`
 `;
 
 export const filtersAndSearchResultsContainer = css`
-  display: flex;
+  @media (min-width: 480px) {
+    display: flex;
+  }
 `;
 
 export const searchResultsContainer = css`
   width: 100%;
-  margin: 0 20px;
+
+  @media (min-width: 480px) {
+    margin: 0 20px;
+  }
 `;
 
 export const filterContainer = css`
