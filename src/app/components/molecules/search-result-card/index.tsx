@@ -7,7 +7,7 @@ interface SearchResultCardProps {
   hotelName: string;
   pricePerPerson: number;
   hotelFacilities: string[];
-  starRating: string | number;
+  starRating?: string | number;
   hotelImages: HotelImage[];
 }
 
