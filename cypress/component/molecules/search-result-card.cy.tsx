@@ -26,4 +26,24 @@ describe("SearchResultCard", () => {
     cy.get("li").contains("Swimming Pool");
     cy.contains("span", "£1234.12pp");
   });
+
+  it("Does not render star rating when not provided", () => {
+    cy.mount(
+      <SearchResultCard
+        hotelName="Rosen Inn Lake Buena Vista"
+        pricePerPerson={1234.12}
+        hotelFacilities={["Restaurant", "Bar", "Swimming Pool"]}
+        starRating={undefined}
+        hotelImages={[
+          {
+            RESULTS_CAROUSEL: {
+              url: "//d3hk78fplavsbl.cloudfront.net/assets/common-prod/hotel/300/8291/8291-1-results_carousel.jpg?version=29",
+            },
+          },
+        ]}
+      />
+    );
+
+    cy.contains("span", "Star Rating: 5").should("not.exist");
+  });
 });
