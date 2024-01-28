@@ -228,5 +228,8 @@ describe("SearchResults", () => {
       cy.contains("label", /^5$/).click();
       cy.get("h2").should("contain", "2 results found");
     });
+
+    // TO DO: Add tests for multiple filter selection from different categories:
+    // Investigate: Cypress is unable to select multiple filters and render the search results
   });
 });

@@ -1,3 +1,5 @@
+/* TO DO: Remove CSS from SSR components and replace with styled components */
+
 .searchResultsContainer {
   visibility: hidden;
 }
