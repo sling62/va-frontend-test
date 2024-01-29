@@ -11,6 +11,7 @@ Unfortunatly due to time restrictions I was unable to do the following:
 
 - Add a theme for styled components
 - Add e2e tests
+- Improve on lighthouse scores
 - Things which have been commented as 'TO DO'
 
 ## Rules
